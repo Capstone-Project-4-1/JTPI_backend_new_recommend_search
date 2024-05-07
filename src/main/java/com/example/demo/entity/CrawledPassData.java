@@ -56,11 +56,11 @@ public class CrawledPassData {
 
     // Getters and Setters
     public Integer getCrawledId() {
-        return crawledId;
+        return crawledID;
     }
 
     public void setCrawledId(Integer crawledId) {
-        this.crawledId = crawledId;
+        this.crawledID = crawledId;
     }
 
     public SiteList getSite() {
