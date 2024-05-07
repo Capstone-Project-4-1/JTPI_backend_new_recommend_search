@@ -1,6 +1,5 @@
 package com.example.demo.unit;
 
-
 import com.example.demo.Repository.PassRepository;
 import com.example.demo.entity.PassInformation;
 import org.junit.jupiter.api.Test;
@@ -13,7 +12,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-/*@ActiveProfiles("test")*/
+@ActiveProfiles("test")
 public class PassRepositoryTest {
 
     @Autowired
