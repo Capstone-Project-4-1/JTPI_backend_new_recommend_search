@@ -42,6 +42,11 @@ public class PassInformation {
     @Column(length = 100, nullable = false)
     private String imageURL;
 
+    @Column(nullable = false)
+    private Integer quantityChildren = 0;
+
+    @Column(nullable = false)
+    private Integer quantityAdults = 0;
     // Constructors
     public PassInformation() {}
 
@@ -59,11 +64,11 @@ public class PassInformation {
     }
 
     // Getters and Setters
-    public Integer getPassId() {
+    public Integer getpassID() {
         return passID;
     }
 
-    public void setPassId(Integer passId) {
+    public void setpassID(Integer passId) {
         this.passID = passId;
     }
 
@@ -145,5 +150,20 @@ public class PassInformation {
 
     public void setImageURL(String imageURL) {
         this.imageURL = imageURL;
+    }
+    public Integer getQuantityChildren() {
+        return quantityChildren;
+    }
+
+    public void setQuantityChildren(Integer quantityChildren) {
+        this.quantityChildren = quantityChildren;
+    }
+
+    public Integer getQuantityAdults() {
+        return quantityAdults;
+    }
+
+    public void setQuantityAdults(Integer quantityAdults) {
+        this.quantityAdults = quantityAdults;
     }
 }

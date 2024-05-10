@@ -24,6 +24,26 @@ public class PassRepositoryTest {
         List<PassInformation> recommendedPasses = passRepository.findRecommendedPasses();
 
         // 검증
-        assertThat(recommendedPasses).hasSize(2);
+        assertThat(recommendedPasses).isNotNull();  //리스트 널 아닌거 확인
+        assertThat(recommendedPasses).hasSize(2); // 추천 패스는 2개로 제한되어 있으므로
+        assertThat(recommendedPasses.get(0).getTitle()).isNotNull();
+        assertThat(recommendedPasses.get(1).getTitle()).isNotNull();
+    }
+    @Test
+    public void testFindNewPasses() {
+
+        List<PassInformation> newPasses = passRepository.findNewPasses();
+
+        // 결과 검증
+        assertThat(newPasses).isNotNull();
+        assertThat(newPasses).isNotEmpty(); // 새로운 패스가 비어 있지 않아야 함
+        assertThat(newPasses.get(0).getTitle()).isNotNull();
+        assertThat(newPasses.get(1).getTitle()).isNotNull();
+        assertThat(newPasses.get(0).getTitle()).isEqualTo("Shiz");
+        assertThat(newPasses.get(0).getImageURL()).isEqualTo("http://example.com/image10.jpg");
+
+        assertThat(newPasses.get(1).getTitle()).isEqualTo("Jenn");
+        assertThat(newPasses.get(1).getImageURL()).isEqualTo("http://example.com/image9.jpg");
+
     }
 }

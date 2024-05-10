@@ -1,25 +1,25 @@
 package com.example.demo.DTO;
 
 public class PassPreviewDTO {
-    private Integer passid;
+    private Integer passID;
     private String title;
     private String imageURL;
 
     public PassPreviewDTO() {
     }
 
-    public PassPreviewDTO(Integer passid, String title, String imageURL) {
-        this.passid = passid;
+    public PassPreviewDTO(Integer passID, String title, String imageURL) {
+        this.passID = passID;
         this.title = title;
         this.imageURL = imageURL;
     }
 
 
-    public Integer getId() {
-        return passid;
+    public Integer getpassID() {
+        return passID;
     }
-    public void setpassId(Integer passid) {
-        this.passid = passid;
+    public void setpassID(Integer passID) {
+        this.passID = passID;
     }
 
     public String getTitle() {
@@ -41,7 +41,7 @@ public class PassPreviewDTO {
     @Override
     public String toString() {
         return "PassPreviewDTO{" +
-                "passid=" + passid +
+                "passid=" + passID +
                 ", title='" + title + '\'' +
                 ", imageURL='" + imageURL + '\'' +
                 '}';
