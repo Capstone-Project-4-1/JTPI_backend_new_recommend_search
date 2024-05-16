@@ -4,6 +4,13 @@ public class SlideShowPassDTO {
     private String title;
     private String imageUrl;
 
+    public SlideShowPassDTO(){}
+    public SlideShowPassDTO(Integer id, String title, String imageUrl ) {
+        this.id = id;
+        this.title = title;
+        this.imageUrl = imageUrl;
+
+    }
     public Integer getId() {
         return id;
     }

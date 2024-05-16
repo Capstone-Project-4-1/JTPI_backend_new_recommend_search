@@ -5,10 +5,12 @@ public class PassPreviewDTO {
     private String title;
     private String imageURL;
 
+
+
     public PassPreviewDTO() {
     }
 
-    public PassPreviewDTO(Integer passID, String title, String imageURL) {
+    public PassPreviewDTO(Integer passID,String title, String imageURL ) {
         this.passID = passID;
         this.title = title;
         this.imageURL = imageURL;

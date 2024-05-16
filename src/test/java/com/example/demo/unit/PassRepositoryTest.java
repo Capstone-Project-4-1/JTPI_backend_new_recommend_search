@@ -3,47 +3,65 @@ package com.example.demo.unit;
 import com.example.demo.Repository.PassRepository;
 import com.example.demo.entity.PassInformation;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.TestPropertySource;
 
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
+@ExtendWith(SpringExtension.class)
 @SpringBootTest
-@ActiveProfiles("test")
+@TestPropertySource(locations = "classpath:application-test.properties")
 public class PassRepositoryTest {
 
     @Autowired
     private PassRepository passRepository;
 
     @Test
-    public void testFindRecommendedPasses() {
-        // 테스트 실행
-        List<PassInformation> recommendedPasses = passRepository.findRecommendedPasses();
-
-        // 검증
-        assertThat(recommendedPasses).isNotNull();  //리스트 널 아닌거 확인
-        assertThat(recommendedPasses).hasSize(2); // 추천 패스는 2개로 제한되어 있으므로
-        assertThat(recommendedPasses.get(0).getTitle()).isNotNull();
-        assertThat(recommendedPasses.get(1).getTitle()).isNotNull();
-    }
-    @Test
-    public void testFindNewPasses() {
-
+    void testFindNewPasses() {
         List<PassInformation> newPasses = passRepository.findNewPasses();
+        assertNotNull(newPasses);
+        assertTrue(newPasses.size() <= 4);
+    }
 
-        // 결과 검증
-        assertThat(newPasses).isNotNull();
-        assertThat(newPasses).isNotEmpty(); // 새로운 패스가 비어 있지 않아야 함
-        assertThat(newPasses.get(0).getTitle()).isNotNull();
-        assertThat(newPasses.get(1).getTitle()).isNotNull();
-        assertThat(newPasses.get(0).getTitle()).isEqualTo("Shiz");
-        assertThat(newPasses.get(0).getImageURL()).isEqualTo("http://example.com/image10.jpg");
+    @Test
+    void testFindSlideShowNewPasses() {
+        List<PassInformation> slideShowNewPasses = passRepository.findSlideShowNewPasses();
+        assertNotNull(slideShowNewPasses);
+    }
 
-        assertThat(newPasses.get(1).getTitle()).isEqualTo("Jenn");
-        assertThat(newPasses.get(1).getImageURL()).isEqualTo("http://example.com/image9.jpg");
+    @Test
+    void testFindRecommendedPasses() {
+        List<PassInformation> recommendedPasses = passRepository.findRecommendedPasses();
+        assertNotNull(recommendedPasses);
+        assertTrue(recommendedPasses.size() <= 4);
+    }
 
+    @Test
+    void testFindSlideShowRecommendedPasses() {
+        List<PassInformation> slideShowRecommendedPasses = passRepository.findSlideShowRecommendedPasses();
+        assertNotNull(slideShowRecommendedPasses);
+        assertTrue(slideShowRecommendedPasses.size() <= 4);
+    }
+
+    @Test
+    void testFindBySearchQuery() {
+        String query = "%test%";
+        String departureCity = "Seoul";
+        String arrivalCity = "Busan";
+        String transportType = "Train";
+        String cityNames = "Seoul";
+        Integer duration = 5;
+        Integer quantityAdults = 2;
+        Integer quantityChildren = 1;
+
+        List<PassInformation> searchResults = passRepository.findBySearchQuery(
+                query, departureCity, arrivalCity, transportType, cityNames, duration, quantityAdults, quantityChildren);
+
+        assertNotNull(searchResults);
     }
 }

@@ -85,6 +85,7 @@ public class PassService {
         dto.setpassID(data.getpassID());
         dto.setImageUrl(data.getImageURL());
         dto.setTitle(data.getTitle());
+        dto.setCityNames(data.getCityNames());
         dto.setPrice(data.getPrice());
         return dto;
     }

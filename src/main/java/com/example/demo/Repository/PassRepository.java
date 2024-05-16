@@ -19,7 +19,7 @@ public interface PassRepository extends JpaRepository<PassInformation, Integer> 
     @Query(value = "SELECT * FROM PassInformation ORDER BY create_at DESC LIMIT 4", nativeQuery = true)
     List<PassInformation> findNewPasses();
     //슬라이드용
-    @Query(value = "SELECT * FROM PassInformation ORDER BY create_at DESC", nativeQuery = true)
+    @Query(value = "SELECT * FROM PassInformation ORDER BY create_at DESC LIMIT 4", nativeQuery = true)
     List<PassInformation> findSlideShowNewPasses();
 
    //추천
@@ -57,5 +57,4 @@ public interface PassRepository extends JpaRepository<PassInformation, Integer> 
             @Param("quantityAdults") Integer quantityAdults,
             @Param("quantityChildren") Integer quantityChildren
     );
-    Collection<Object> findBySearchQuery(String query, String departureCity, String arrivalCity, String transportType, String cityNames, Integer duration);
-}
+    }
