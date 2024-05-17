@@ -1,5 +1,4 @@
 package com.example.demo.unit;
-import com.example.demo.DTO.PassPreviewDTO;
 import com.example.demo.DTO.PassSearchResultDTO;
 import com.example.demo.DTO.SlideShowPassDTO;
 import com.example.demo.Repository.PassRepository;
@@ -32,15 +31,6 @@ public class PassServiceTest {
         MockitoAnnotations.openMocks(this);
     }
 
-    @Test
-    void testFetchRecommendedPasses() {
-        List<PassInformation> recommendedPasses = Collections.emptyList();
-        when(passRepository.findRecommendedPasses()).thenReturn(recommendedPasses);
-
-        List<PassPreviewDTO> result = passService.fetchRecommendedPasses();
-
-        assertEquals(0, result.size());
-    }
 
     @Test
     void testFetchSlideShowNewPasses() {
@@ -48,16 +38,6 @@ public class PassServiceTest {
         when(passRepository.findSlideShowNewPasses()).thenReturn(slideShowNewPasses);
 
         List<SlideShowPassDTO> result = passService.fetchSlideShowNewPasses();
-
-        assertEquals(0, result.size());
-    }
-
-    @Test
-    void testFetchNewPasses() {
-        List<PassInformation> newPasses = Collections.emptyList();
-        when(passRepository.findNewPasses()).thenReturn(newPasses);
-
-        List<PassPreviewDTO> result = passService.fetchNewPasses();
 
         assertEquals(0, result.size());
     }

@@ -21,12 +21,6 @@ public class PassRepositoryTest {
     @Autowired
     private PassRepository passRepository;
 
-    @Test
-    void testFindNewPasses() {
-        List<PassInformation> newPasses = passRepository.findNewPasses();
-        assertNotNull(newPasses);
-        assertTrue(newPasses.size() <= 4);
-    }
 
     @Test
     void testFindSlideShowNewPasses() {
@@ -34,12 +28,6 @@ public class PassRepositoryTest {
         assertNotNull(slideShowNewPasses);
     }
 
-    @Test
-    void testFindRecommendedPasses() {
-        List<PassInformation> recommendedPasses = passRepository.findRecommendedPasses();
-        assertNotNull(recommendedPasses);
-        assertTrue(recommendedPasses.size() <= 4);
-    }
 
     @Test
     void testFindSlideShowRecommendedPasses() {

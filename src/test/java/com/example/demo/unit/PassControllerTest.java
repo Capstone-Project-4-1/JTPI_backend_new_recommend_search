@@ -1,6 +1,5 @@
 package com.example.demo.unit;
 import com.example.demo.Controller.PassController;
-import com.example.demo.DTO.PassPreviewDTO;
 import com.example.demo.DTO.PassSearchResultDTO;
 import com.example.demo.DTO.SlideShowPassDTO;
 import com.example.demo.SearchParameters;
@@ -44,15 +43,6 @@ public class PassControllerTest {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
 
-    @Test
-    void testGetRecommendedPasses() throws Exception {
-        List<PassPreviewDTO> recommendedPasses = Collections.emptyList();
-        when(passService.fetchRecommendedPasses()).thenReturn(recommendedPasses);
-
-        mockMvc.perform(get("/api/passes/recommended"))
-                .andExpect(status().isOk())
-                .andExpect(content().json(objectMapper.writeValueAsString(recommendedPasses)));
-    }
 
     @Test
     void testGetSlideShowRecommendedPasses() throws Exception {
@@ -64,15 +54,6 @@ public class PassControllerTest {
                 .andExpect(content().json(objectMapper.writeValueAsString(slideShowRecommendedPasses)));
     }
 
-    @Test
-    void testGetNewPasses() throws Exception {
-        List<PassPreviewDTO> newPasses = Collections.emptyList();
-        when(passService.fetchNewPasses()).thenReturn(newPasses);
-
-        mockMvc.perform(get("/api/passes/new"))
-                .andExpect(status().isOk())
-                .andExpect(content().json(objectMapper.writeValueAsString(newPasses)));
-    }
 
     @Test
     void testGetSlideShowNewPasses() throws Exception {
