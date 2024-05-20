@@ -4,7 +4,6 @@ import com.example.demo.DTO.PassSearchResultDTO;
 import com.example.demo.SearchParameters;
 import com.example.demo.Service.PassService;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
