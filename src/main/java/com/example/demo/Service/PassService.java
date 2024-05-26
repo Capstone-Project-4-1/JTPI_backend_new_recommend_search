@@ -32,7 +32,7 @@ public class PassService {
     }
 
     //검색
-    public List<PassSearchResultDTO> searchPasses(SearchParameters searchParams) {
+/*    public List<PassSearchResultDTO> searchPasses(SearchParameters searchParams) {
         return passRepository.findBySearchQuery(
                         prepareLikePattern(searchParams.getQuery()),
                         prepareLikePattern(searchParams.getDepartureCity()),
@@ -49,6 +49,20 @@ public class PassService {
 
     private String prepareLikePattern(String input) {
         return input != null ? "%" + input + "%" : null;
+    }*/
+    public List<PassSearchResultDTO> searchPasses(SearchParameters searchParams) {
+        return passRepository.findByDynamicQuery(
+                        searchParams.getQuery(),
+                        searchParams.getDepartureCity(),
+                        searchParams.getArrivalCity(),
+                        searchParams.getTransportType(),
+                        searchParams.getCityNames(),
+                        searchParams.getDuration(),
+                        searchParams.getQuantityAdults(),
+                        searchParams.getQuantityChildren()
+                ).stream()
+                .map(this::convertToPassSearchResultDTO)
+                .collect(Collectors.toList());
     }
 
 

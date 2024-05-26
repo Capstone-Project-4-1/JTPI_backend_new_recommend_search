@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface PassRepository extends JpaRepository<PassInformation, Integer> {
+public interface PassRepository extends JpaRepository<PassInformation, Integer>, PassRepositoryCustom {
 
 
     //신규 슬라이드용
@@ -27,16 +27,15 @@ public interface PassRepository extends JpaRepository<PassInformation, Integer> 
     List<PassInformation> findSlideShowRecommendedPasses();
 
 
-
     //검색
-    @Query("SELECT p FROM PassInformation p WHERE " +
-            "(:query IS NULL OR p.title LIKE :query OR p.cityNames LIKE :query) OR " +
-            "(:departureCity IS NULL OR p.cityNames LIKE :departureCity) OR " +
-            "(:arrivalCity IS NULL OR p.cityNames LIKE :arrivalCity) OR " +
-            "(:transportType IS NULL OR p.transportType = :transportType) OR " +
-            "(:cityNames IS NULL OR p.cityNames LIKE :cityNames) OR " +
-            "(:duration IS NULL OR p.period = :duration) OR " +
-            "(:quantityAdults IS NULL OR p.quantityAdults = :quantityAdults) OR " +
+   /* @Query("SELECT p FROM PassInformation p WHERE " +
+            "(:query IS NULL OR p.title LIKE %:query% OR p.cityNames LIKE %:query%) AND " +
+            "(:departureCity IS NULL OR p.cityNames LIKE %:departureCity%) AND " +
+            "(:arrivalCity IS NULL OR p.cityNames LIKE %:arrivalCity%) AND " +
+            "(:transportType IS NULL OR p.transportType = :transportType) AND " +
+            "(:cityNames IS NULL OR p.cityNames LIKE %:cityNames%) AND " +
+            "(:duration IS NULL OR p.period = :duration) AND " +
+            "(:quantityAdults IS NULL OR p.quantityAdults = :quantityAdults) AND " +
             "(:quantityChildren IS NULL OR p.quantityChildren = :quantityChildren)")
     List<PassInformation> findBySearchQuery(
             @Param("query") String query,
@@ -47,5 +46,5 @@ public interface PassRepository extends JpaRepository<PassInformation, Integer> 
             @Param("duration") Integer duration,
             @Param("quantityAdults") Integer quantityAdults,
             @Param("quantityChildren") Integer quantityChildren
-    );
+    );*/
     }

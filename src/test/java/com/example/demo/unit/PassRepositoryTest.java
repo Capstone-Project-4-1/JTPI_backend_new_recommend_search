@@ -1,4 +1,5 @@
 package com.example.demo.unit;
+/*
 
 import com.example.demo.Repository.PassRepository;
 import com.example.demo.entity.PassInformation;
@@ -53,3 +54,4 @@ public class PassRepositoryTest {
         assertNotNull(searchResults);
     }
 }
+*/

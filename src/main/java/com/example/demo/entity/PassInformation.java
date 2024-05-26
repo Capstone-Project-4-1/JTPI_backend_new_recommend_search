@@ -49,11 +49,8 @@ public class PassInformation {
     private String benefitInformation;
     private String reservationInformation;
     private String refundInformation;
-    // Constructors
-    public PassInformation() {}
+    private String productDescription;
 
-
-    // Getters and Setters
     public Integer getpassID() {
         return passID;
     }
@@ -171,5 +168,13 @@ public class PassInformation {
 
     public void setRefundInformation(String refundInformation) {
         this.refundInformation = refundInformation;
+    }
+
+    public void setProductDescription(String productDescription) {
+        this.productDescription = productDescription;
+    }
+
+    public String getProductDescription() {
+        return productDescription;
     }
 }

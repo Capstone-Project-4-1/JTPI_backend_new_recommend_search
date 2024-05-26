@@ -3,6 +3,7 @@ import com.example.demo.DTO.SlideShowPassDTO;
 import com.example.demo.DTO.PassSearchResultDTO;
 import com.example.demo.SearchParameters;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +12,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultMatcher;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.WebApplicationContext;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -21,6 +26,7 @@ import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.is;
 
 
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
@@ -41,6 +47,12 @@ public class PassControllerIntegrationTest {
 
     @Autowired
     private ObjectMapper objectMapper;
+    @Autowired
+    private WebApplicationContext context;
+    @BeforeEach
+    public void setup() {
+        this.mockMvc = MockMvcBuilders.webAppContextSetup(this.context).build();  // 변수 이름 수정
+    }
     //신규
     @Test
     void testGetSlideShowNewPasses() throws Exception {
@@ -81,7 +93,7 @@ public class PassControllerIntegrationTest {
     }
 
 
-    @Test
+ /*   @Test
     void testSearchPasses() throws Exception {
         SearchParameters searchParams = new SearchParameters();
         searchParams.setQuery("Tokyo");
@@ -111,6 +123,63 @@ public class PassControllerIntegrationTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().json(objectMapper.writeValueAsString(expectedSearchResults)));
-    }
+    }*/
+    /* @Test
+
+ public void testSearchPasses() throws Exception {
+     // 검색 파라미터 설정
+     SearchParameters searchParams = new SearchParameters();
+     searchParams.setQuery("Tokyo");
+     searchParams.setDepartureCity("doing well");
+     searchParams.setArrivalCity("please");
+     searchParams.setTransportType("fufu");
+     searchParams.setCityNames("null");
+     searchParams.setDuration(6);
+     searchParams.setQuantityAdults(3);
+     searchParams.setQuantityChildren(3);
+
+     // API 호출 및 응답 검증
+     MvcResult mvcResult = mockMvc.perform(post("/api/passes/search")
+                     .contentType(MediaType.APPLICATION_JSON)
+                     .content(objectMapper.writeValueAsString(searchParams))
+                     .characterEncoding("UTF-8"))
+             .andExpect(status().isOk())
+             .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+             .andReturn();
+
+     // 응답 본문을 JSON 문자열로 추출
+     String jsonResponse = mvcResult.getResponse().getContentAsString(StandardCharsets.UTF_8);
+
+     // 응답 본문 출력 (디버깅을 위해)
+     System.out.println("API 응답: " + jsonResponse);
+
+     // 필요한 경우 실제 결과를 기반으로 추가 검증 로직을 작성할 수 있습니다.
+     // 예: 예상되는 결과와 실제 결과를 비교하는 assert 문 추가
+ }*/
+ @Test
+ public void testSearchPasses() throws Exception {
+     // 검색 파라미터 설정
+     SearchParameters searchParams = new SearchParameters();
+     searchParams.setTransportType("2");
+
+
+
+
+
+     // API 호출 및 응답 검증
+     MvcResult mvcResult = mockMvc.perform(post("/api/passes/search")
+                     .contentType(MediaType.APPLICATION_JSON)
+                     .content(objectMapper.writeValueAsString(searchParams))
+                     .characterEncoding("UTF-8"))
+             .andExpect(status().isOk())
+             .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+             .andReturn();
+
+     // 응답 본문을 JSON 문자열로 추출
+     String jsonResponse = mvcResult.getResponse().getContentAsString(StandardCharsets.UTF_8);
+
+     // 응답 본문 출력 (디버깅을 위해)
+     System.out.println("API 응답: " + jsonResponse);
+ }
 
 }

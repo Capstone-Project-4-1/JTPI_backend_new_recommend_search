@@ -15,6 +15,14 @@ public class PassController {
     public PassController(PassService passService) {
         this.passService = passService;
     }
+    @RestController
+    public class HelloController {
+
+        @GetMapping("/hello")
+        public String hello() {
+            return "Hello, World!";
+        }
+    }
 
     //신규
     @GetMapping("/slideshow/new")
