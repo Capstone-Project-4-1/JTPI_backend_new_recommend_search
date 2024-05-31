@@ -50,16 +50,16 @@ public class PassService {
     private String prepareLikePattern(String input) {
         return input != null ? "%" + input + "%" : null;
     }*/
+
+    //검색
     public List<PassSearchResultDTO> searchPasses(SearchParameters searchParams) {
         return passRepository.findByDynamicQuery(
-                        searchParams.getQuery(),
+                        searchParams.getsearchQuery(),
                         searchParams.getDepartureCity(),
                         searchParams.getArrivalCity(),
                         searchParams.getTransportType(),
                         searchParams.getCityNames(),
-                        searchParams.getDuration(),
-                        searchParams.getQuantityAdults(),
-                        searchParams.getQuantityChildren()
+                        searchParams.getDuration()
                 ).stream()
                 .map(this::convertToPassSearchResultDTO)
                 .collect(Collectors.toList());

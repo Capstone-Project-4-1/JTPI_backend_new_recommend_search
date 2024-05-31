@@ -11,6 +11,7 @@ import jakarta.persistence.criteria.Root;
 
 import java.util.ArrayList;
 import java.util.List;
+
 public class PassRepositoryImpl implements PassRepositoryCustom {
     @PersistenceContext
     private EntityManager entityManager;
@@ -22,15 +23,33 @@ public class PassRepositoryImpl implements PassRepositoryCustom {
             String arrivalCity,
             String transportType,
             String cityNames,
-            Integer duration,
-            Integer quantityAdults,
-            Integer quantityChildren
+            Integer duration
     ) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<PassInformation> cq = cb.createQuery(PassInformation.class);
         Root<PassInformation> pass = cq.from(PassInformation.class);
 
         List<Predicate> predicates = new ArrayList<>();
+
+        // Convert '0' to null  클라이언트에서 null값을 0으로 보냄
+        if (searchQuery != null && searchQuery.equals("0")) {
+            searchQuery = null;
+        }
+        if (departureCity != null && departureCity.equals("0")) {
+            departureCity = null;
+        }
+        if (arrivalCity != null && arrivalCity.equals("0")) {
+            arrivalCity = null;
+        }
+        if (transportType != null && transportType.equals("0")) {
+            transportType = null;
+        }
+        if (cityNames != null && cityNames.equals("0")) {
+            cityNames = null;
+        }
+        if (duration != null && duration == 0) {
+            duration = null;
+        }
 
         // Search query in title or cityNames
         if (searchQuery != null && !searchQuery.isEmpty()) {
@@ -43,10 +62,10 @@ public class PassRepositoryImpl implements PassRepositoryCustom {
 
         // Add departureCity and arrivalCity conditions
         if (departureCity != null && !departureCity.isEmpty()) {
-            predicates.add(cb.like(pass.get("cityNames"), "%" + departureCity + "%"));
+            predicates.add(cb.like(pass.get("stationNames"), "%" + departureCity + "%"));
         }
         if (arrivalCity != null && !arrivalCity.isEmpty()) {
-            predicates.add(cb.like(pass.get("cityNames"), "%" + arrivalCity + "%"));
+            predicates.add(cb.like(pass.get("stationNames"), "%" + arrivalCity + "%"));
         }
 
         // Add other cityNames conditions
@@ -54,7 +73,7 @@ public class PassRepositoryImpl implements PassRepositoryCustom {
             predicates.add(cb.like(pass.get("cityNames"), "%" + cityNames + "%"));
         }
 
-        // Other predicates
+        // Other predicates for transportType
         if (transportType != null) {
             if (transportType.equals("1")) {  // 전철, 버스 혼합
                 predicates.add(cb.equal(pass.get("transportType"), "전철, 버스"));
@@ -71,7 +90,7 @@ public class PassRepositoryImpl implements PassRepositoryCustom {
             }
         }
 
-
+        // Handle duration
         if (duration != null) {
             if (duration == 1) {
                 predicates.add(cb.equal(pass.get("period"), 1));
@@ -80,13 +99,6 @@ public class PassRepositoryImpl implements PassRepositoryCustom {
             } else if (duration >= 3) {
                 predicates.add(cb.greaterThanOrEqualTo(pass.get("period"), 3));
             }
-        }
-
-        if (quantityAdults != null) {
-            predicates.add(cb.equal(pass.get("quantityAdults"), quantityAdults));
-        }
-        if (quantityChildren != null) {
-            predicates.add(cb.equal(pass.get("quantityChildren"), quantityChildren));
         }
 
         // Combine all predicates with AND
@@ -106,4 +118,3 @@ public class PassRepositoryImpl implements PassRepositoryCustom {
         return results;
     }
 }
-

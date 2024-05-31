@@ -11,8 +11,6 @@ public interface PassRepositoryCustom {
             String arrivalCity,
             String transportType,
             String cityNames,
-            Integer duration,
-            Integer quantityAdults,
-            Integer quantityChildren
+            Integer duration
     );
 }
